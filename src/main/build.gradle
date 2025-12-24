@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'net.neoforged.moddev' version '1.0.1'
+}
+
+group = 'com.teumod'
+version = '1.0.0'
+
+neoForge {
+    // Define a versão do NeoForge para 1.21.1
+    version = '21.1.50'
+
+    parchment {
+        mappingsVersion = '2024.07.28'
+        minecraftVersion = '1.21'
+    }
+
+    // Configurações para rodar o jogo no computador de desenvolvimento
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+    }
+
+    // Registra o seu mod
+    mods {
+        neoforgelite {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // O plugin 'moddev' já cuida da dependência do NeoForge automaticamente
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
