@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[21,)"
+license="MIT"
+
+[[mods]]
+modId="neoforgelite"
+version="1.0.0"
+displayName="NeoForgeLite"
+authors="Flaylizz Erik"
+description='''
+Mod focado em otimização de FPS, GUI e renderização
+para dispositivos fracos (PC e Android/Zalith Launcher).
+'''
+
+[[dependencies.neoforgelite]]
+modId="neoforge"
+type="required"
+versionRange="[21,)"
+ordering="NONE"
+side="CLIENT"
