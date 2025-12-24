@@ -3,29 +3,37 @@ name: Build NeoForgeLite
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Set up Java 21
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '21'
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
 
-    - name: Grant Gradle execute permission
-      run: chmod +x ./gradlew
+      - name: Fix gradlew permissions and line endings
+        run: |
+          sed -i 's/\r$//' gradlew
+          chmod +x ./gradlew
 
-    - name: Build mod with Gradle
-      run: ./gradlew build --no-daemon --stacktrace
+      - name: Build mod with Gradle
+        run: ./gradlew build --no-daemon
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: NeoForgeLite
-        path: build/libs/*.jar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NeoForgeLite-Artifacts
+          path: build/libs/*.jar
+          
